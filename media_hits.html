@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <button id="myButton" onclick="clickMe('myButton')">Test Button</button>
+    <section id="test"></section>
+
+    <table id="table" class="" border="1">
+        <tr>
+            <th>URL</th>
+            <th>pubDate</th>
+                </tr>
+    </table>
+
+    <script type="text/javascript">
+        let mySection = document.getElementById('test');
+        let myTable = document.getElementById('table');
+
+        fetch('media_hits.json')
+            .then(response => response.json())
+            .then(data => {
+                console.info('Returned Data', data);
+
+                console.info('mySection', mySection)
+                mySection.insertAdjacentHTML('afterbegin', data.created);
+
+                data.data.forEach(record => {
+                    myTable.insertAdjacentHTML('beforeend', '<tr><td> <a href ="' + record.url + '">' +  record.pubDate + '</a></td><td>' + record.title + '</td><td>' + record.actions + '</a></td><td> <div class = "btn-group"></div>    <button>Edit</button>    <button>View</button>    <button>Delete</button> </td></tr>');
+                    let name = record.name;
+                    if(record.prefix =""){
+                        name = record.prefix +''+ name;
+                    }
+                });
+
+
+            })
+            .catch(e => console.error(e));
+
+
+
+    </script>
+</body>
+<html>

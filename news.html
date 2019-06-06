@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+
+<head>
+    <title></title>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <button id="myButton" onclick="clickMe('myButton')">Test Button</button>
+    <section id="test"></section>
+    <div id="root"></div>
+    <script src="news.react.js"></script>
+    
+    <table id="table" class="" border="1">
+        <tr>
+            <th>Publication Date</th>
+            <th>Info</th>
+            <th></th>
+        </tr>
+    </table>
+
+    <script type="text/javascript">
+        let mySection = document.getElementById('test');
+        let myTable = document.getElementById('table');
+
+        fetch('news.json')
+            .then(response => response.json())
+            .then(data => {
+                console.info('Returned Data', data);
+
+                console.info('mySection', mySection)
+                mySection.insertAdjacentHTML('afterbegin', data.created);
+
+                data.data.forEach(record => {
+                    let rowStyle = '';
+                    if ( record.approved !== 1) {
+                        rowStyle = 'background-color:rgba(255, 0, 0, .25)';
+                    }
+
+                    myTable.insertAdjacentHTML('beforeend', '<tr style="' + rowStyle + '"><td>' + record.pubDate + '</td><td><h2><a href ="' + record.url + '">' +  record.headline + '</a> by ' + record.byLine + '</h2><p>' + record.description + '</p></td><td> <div class = "btn-group"></div>    <button>Edit</button>    <button>View</button>    <button>Delete</button> </td></tr>');
+                    let name = record.name;
+                    if(record.prefix =""){
+                        name = record.prefix +''+ name;
+                    }
+                });
+
+
+            })
+            .catch(e => console.error(e));
+
+    </script>
+</body>
+<html>
