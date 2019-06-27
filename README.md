@@ -1,1 +1,1 @@
-# Web-Applications
+I built a web application to speed up the process of retrieving and displaying information to users. HTML is used to display the content of the page and CSS is used to provide a consistent look and feel across different browsers. AWS Lambda and Amazon DynamoDB are used to build a backend process for handling requests of the web application. Google analytics, SQL, react.js and service worker are used to retrieve, filter, store, update data locally as well as push updates back to the server. 
